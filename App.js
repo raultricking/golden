@@ -38,7 +38,7 @@ class MyHomeScreen extends React.Component {
 
       <Button
         onPress={() => this.props.navigation.closeDrawer()}
-        title="rama"
+        title="modificacion"
       />
       </View>
     );
