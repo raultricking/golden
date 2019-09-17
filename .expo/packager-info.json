@@ -2,8 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 6845,
-  "expoServerNgrokUrl": "https://u5-xfn.anonymous.golden.exp.direct",
-  "packagerNgrokUrl": "https://packager.u5-xfn.anonymous.golden.exp.direct",
-  "ngrokPid": 6884
+  "packagerPid": 29137,
+  "expoServerNgrokUrl": "https://c5-4qx.anonymous.golden.exp.direct",
+  "packagerNgrokUrl": "https://packager.c5-4qx.anonymous.golden.exp.direct",
+  "ngrokPid": 29219,
+  "webpackServerPort": null
 }
