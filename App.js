@@ -1,208 +1,429 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, FlatList, Image } from 'react-native';
+import { Text, View, Button, StyleSheet, FlatList, Image, SafeAreaView, ScrollView, Dimensions } from 'react-native';
+import { Container, Content, Header, Right, Left, Body, Icon } from 'native-base'
 import { Ionicons } from '@expo/vector-icons';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
-import NavigationR from './components/navigation.js'
-import { PieChart } from 'react-native-svg-charts'
-
-class HomeScreen extends React.Component {
-  render() {
-    return (
-
-        <NavigationR />
-
-    );
-  }
-}
+import { createDrawerNavigator, DrawerNavigatorItems  } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 
 
 
-
-class ProfileScreen extends React.Component {
-  render() {
-    const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
-
-       const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
-
-       const pieData = data
-           .filter(value => value > 0)
-           .map((value, index) => ({
-               value,
-               svg: {
-                   fill: randomColor(),
-                   onPress: () => console.log('press', index),
-               },
-               key: `pie-${index}`,
-           }))
-
-       return (
-         <View style={{
-      flex: 1,
-      flexDirection: 'column',
-    }}>
-
-      <View style={{
-        flex: 1,
-        backgroundColor: 'cyan',
-        marginTop: 23,
-
-      }} >
-
-      <PieChart
-          style={ { height: 100 } }
-          data={ pieData }
-      />
-<Text style={{ textAlign: 'center' }}>Raultricking PROFILE</Text>
+{/*
+  IMPORTS FROM ALL SCREENS  -.------------------------------------------------------------------------------------------------
+*/}
 
 
 
-
-      </View>
-
-      <View style={{flex: 2, backgroundColor: 'grey',alignItems: 'stretch'}} >
-      <Button
-
-        title="Rank Status"
-        color="#000"
-      />
-
-      <FlatList
-               data={[
-                 {key: '24.MarcVilla'},
-                 {key: '23.Polin'},
-                 {key: '22.Raultricking'},
-                 {key: '21.RaulGuarna'},
-                 {key: '20.Cascarilla'},
-                 {key: '19.Michael Guthrie'},
-                 {key: '19.JosuperezV'},
-                 {key: 'Jillian'},
-                 {key: 'Jimmy'},
-                 {key: 'Julie'},
-               ]}
-               renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-             />
+import NavigationR from './templates/navigation.js';
+import ProfileScreen from './app_components/screens/ProfileScreen';
+import StudyScreen from './app_components/screens/StudyScreen';
+import FeedScreen from './app_components/screens/FeedScreen';
+import RankScreen from './app_components/screens/RankScreen';
+import NotificationsScreen from './app_components/screens/NotificationsScreen';
+import SettingsScreen from './app_components/screens/SettingsScreen';
+import Example from "./app_components/screens/Example";
 
 
 
-  </View>
-
-      <View style={{flex: 2, backgroundColor: 'grey'}} >
-
-      <Button
-
-        title="Uploads"
-        color="#000"
-      />
-
-      <Image
-           style={{flex: 1}}
-           source={{uri: 'https://i.ytimg.com/vi/2GrjUfnhVZ0/maxresdefault.jpg'}}
-         />
-
-        </View>
-    </View>
-       )
-  }
-}
-
-class OptionsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-    );
-  }
-}
-
+{/*
+  ICON UTILS ----------------------------------------------------------------------------------------------------------------------
+*/}
 
 
 class IconWithBadge extends React.Component {
   render() {
     const { name, badgeCount, color, size } = this.props;
     return (
-      <View style={{ width: 24, height: 24, margin: 5 }}>
+      <View style={styles.IconBadge}>
+
         <Ionicons name={name} size={size} color={color} />
-        {badgeCount > 0 && (
-          <View
-            style={{
-              // /If you're using react-native < 0.57 overflow outside of the parent
-              // will not work on Android, see https://git.io/fhLJ8
-              position: 'absolute',
-              right: -6,
-              top: -3,
-              backgroundColor: 'red',
-              borderRadius: 6,
-              width: 12,
-              height: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+
+        {badgeCount > 0 &&
+          (
+            <View style={styles.IconBadgeView}>
+            <Text style={styles.IconBadgeText }>
               {badgeCount}
             </Text>
-          </View>
+            </View>
         )}
+
       </View>
     );
   }
 }
 
-const HomeIconWithBadge = props => {
+
+const MoveIconWithBadge = props => {
   // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
-  return <IconWithBadge {...props} badgeCount={3} />;
+  return <IconWithBadge {...props} badgeCount={1} />;
 };
+
+const NotificationsIconWithBadge = props => {
+  // You should pass down the badgeCount in some other ways like context, redux, mobx or event emitters.
+  return <IconWithBadge {...props} badgeCount={7} />;
+};
+
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
   const { routeName } = navigation.state;
   let IconComponent = Ionicons;
   let iconName;
-  if (routeName === 'Ranking') {
-    iconName = `ios-flame`;
+  if (routeName === 'Movement') {
+    iconName = `md-cloud-outline`;
     // We want to add badges to home tab icon
-    IconComponent = HomeIconWithBadge;
-  } else if (routeName === 'Perfil') {
+    IconComponent = MoveIconWithBadge;
+  } else if (routeName === 'Feed') {
+    iconName = `md-eye`;
+  } else if (routeName === 'Ranking') {
+    iconName = `ios-flame`;
+  } else if (routeName === 'Notifications') {
+    iconName = `ios-notifications`;
+    IconComponent = NotificationsIconWithBadge
+  } else if (routeName === 'Profile') {
     iconName = `ios-body`;
-  } else if (routeName === 'Opciones') {
-    iconName = `ios-options`;
   }
-
 
   // You can return any component that you like here!
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
-export default createAppContainer(
+
+
+
+{/*
+-------------------------------------------------------------------------------------------------------------
+*/}
+
+
+
+
+
+
+
+{/*
+  AUTHENTIFICATION STACK  -------------------------------------------------------------------------------------------------------------
+*/}
+
+
+
+const AuthStack = createStackNavigator({
+  Landing: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Landing"
+    }
+  },
+  SignIn: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Sign In"
+    }
+  },
+  CreateAccount: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Create Account"
+    }
+  },
+  ForgotPassword: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Forgot Password"
+    }
+  },
+  ResetPassword: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Reset Password"
+    }
+  }
+});
+
+{/*
+STUDYSTACK--------------------------------------------------------------------------------------------------------
+*/}
+
+
+const MovementStack = createStackNavigator({
+  catalogue: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Catalogue"
+    }
+  },
+  movement: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Movement"
+    }
+  }
+});
+
+
+{/*
+STUDYSTACK--------------------------------------------------------------------------------------------------------
+*/}
+
+const RankStack = createStackNavigator({
+  Ranking: {
+    screen: RankScreen,
+    navigationOptions: {
+      headerTitle: "Ranking",
+    }
+  },
+  Other: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: "Movement"
+    }
+  }
+});
+
+{/*
+  PROFILE PAGES STACK NAVIGATOR  -.------------------------------------------------------------------------------------------------
+*/}
+
+const ProfileStack = createStackNavigator({
+  Profile_main: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: 'Profile Main',
+    },
+  },
+  Profile_others: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: 'Profile Others',
+    },
+  },
+}
+
+);
+
+{/*
+  SETTINGS PAGES STACK NAVIGATOR  -.------------------------------------------------------------------------------------------------
+*/}
+
+const SettingsStack = createStackNavigator({
+  Settings_main: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: 'Settings Main',
+    },
+  },
+  Settings_others: {
+    screen: Example,
+    navigationOptions: {
+      headerTitle: 'Settings Others',
+    },
+  },
+});
+
+
+
+
+
+
+
+
+
+
+
+
+{/*
+  USER TAB ( DRAWER NAVIGATOR + STACK NAVIGATORS )  -.------------------------------------------------------------------------------------------------
+*/}
+
+{/*
+  CUSTOM DRAWER CONFIG  -.------------------------------------------------------------------------------------------------
+*/}
+const customNavigator = (props) => (
+<SafeAreaView style={styles.DrawerSafeArea}>
+<View style={styles.DrawerHeader}>
+<Ionicons name='md-infinite' style={styles.DrawerImage} size={70}/>
+</View>
+<ScrollView>
+  <DrawerNavigatorItems {...props} />
+</ScrollView>
+</SafeAreaView>
+
+)
+
+{/*
+  USER TAB MAIN DRAWER NAVIGATOR  -.------------------------------------------------------------------------------------------------
+*/}
+
+
+const UserScreen = createDrawerNavigator(
+  {
+    Profile: {
+      screen: ProfileStack,
+      navigationOptions: {
+        drawerLabel: 'Profile',
+        drawerIcon: () =>  <Ionicons name='ios-body' size={25}  />
+      }
+    },
+    Settings: {
+      screen: SettingsStack,
+      navigationOptions: {
+        drawerIcon: () =>  <Ionicons name='ios-settings' size={25} />
+      }
+    }
+  },
+  {
+
+      contentComponent: customNavigator,
+      drawerPosition: 'right',
+      drawerWidth: 250,
+
+
+  }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/*
+  APP NAVIGATOR USING BOTTOMNAVIGATION  -.------------------------------------------------------------------------------------------------
+*/}
+
+const AppModalStack =
   createBottomTabNavigator(
     {
-      Ranking: { screen: HomeScreen },
-      Perfil: { screen: ProfileScreen },
-      Opciones: {screen: OptionsScreen}
+      Movement: {screen: MovementStack},
+      Feed:{screen: FeedScreen},
+      Ranking: { screen: RankStack },
+      Notifications: { screen: NotificationsScreen },
+      Profile: {screen: UserScreen}
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) =>
           getTabBarIcon(navigation, focused, tintColor),
       }),
-      tabBarOptions: {
-        activeTintColor: '#f4511e',
-        inactiveTintColor: 'gray',
+  tabBarOptions: {
+        activeTintColor: '#00ccff',
+        inactiveTintColor: 'black',
+
       },
     }
-  )
+
 );
 
 
+
+{/*
+MAIN SWTICH NAVIGATOR -.------------------------------------------------------------------------------------------------
+*/}
+
+
+const App = createSwitchNavigator({
+  Loading: {
+    screen: Example
+  },
+  Auth: {
+    screen: AuthStack
+  },
+  App: {
+    screen: AppModalStack
+  }
+});
+
+export default createAppContainer(App);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/*
+  styles -.------------------------------------------------------------------------------------------------
+*/}
+
+
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
+  IconBadge: {
+     width: 24,
+     height: 24,
+     margin: 5
   },
-  item: {
-    padding: 10,
-    fontSize: 15,
-    height: 40,
+  IconBadgeView: {
+    position: 'absolute',
+    right: -6,
+    top: -3,
+    backgroundColor: 'black',
+    borderRadius: 6,
+    width: 12,
+    height: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  IconBadgeText: {
+    color: 'cyan',
+    fontSize: 10,
+    fontWeight: 'bold'
+  },
+  DrawerImage: {
+    width: 100,
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  DrawerHeader: {
+  height: 140,
+  backgroundColor: 'white',
+  alignItems: 'center',
+  justifyContent: 'center',
+  },
+  DrawerSafeArea: {
+flex: 1
+
+  }
 })
