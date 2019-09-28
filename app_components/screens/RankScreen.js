@@ -207,6 +207,26 @@ const ranking_data = [
 
 
 class RankScreen extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      dataSource: []
+    }
+  }
+
+  componentDidMount() {
+    const url='http://178.60.19.156:5000/ranks'
+    fetch(url)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        dataSource : responseJson.result
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 
   _renderLevels(item){
   return (
@@ -239,7 +259,7 @@ _renderRank(item){
             ItemSeparatorComponent = {() => <View style={{width: 30}}  />}
             renderItem={({item}) => this._renderLevels(item)}
             keyExtractor={item => item.level}
-            data = { ranking_data }
+            data = { this.state.dataSource }
             />
         </View>
 
