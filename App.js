@@ -17,14 +17,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import NavigationR from './templates/navigation.js';
 import ProfileScreen from './app_components/screens/ProfileScreen';
-import StudyScreen from './app_components/screens/StudyScreen';
 import FeedScreen from './app_components/screens/FeedScreen';
 import RankScreen from './app_components/screens/RankScreen';
 import NotificationsScreen from './app_components/screens/NotificationsScreen';
 import SettingsScreen from './app_components/screens/SettingsScreen';
 import Example from "./app_components/screens/Example";
-
-
+import Catalogue from "./app_components/screens/Catalogue";
+import MoveList from "./app_components/screens/MoveList";
 
 {/*
   ICON UTILS ----------------------------------------------------------------------------------------------------------------------
@@ -147,9 +146,15 @@ STUDYSTACK----------------------------------------------------------------------
 
 const MovementStack = createStackNavigator({
   catalogue: {
-    screen: Example,
+    screen: Catalogue,
     navigationOptions: {
-      headerTitle: "Catalogue"
+      headerTitle: "The World of Movement☘"
+    }
+  },
+  move_list: {
+    screen: MoveList,
+    navigationOptions: {
+      headerTitle: "All movements ⚡"
     }
   },
   movement: {
