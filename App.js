@@ -324,7 +324,7 @@ const AppModalStack =
           getTabBarIcon(navigation, focused, tintColor),
       }),
   tabBarOptions: {
-        activeTintColor: '#00ccff',
+        activeTintColor: '#0288d1',
         inactiveTintColor: 'black',
 
       },
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   IconBadgeText: {
-    color: 'cyan',
+    color: '#4fc3f7',
     fontSize: 10,
     fontWeight: 'bold'
   },

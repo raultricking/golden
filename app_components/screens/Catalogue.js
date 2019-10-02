@@ -144,36 +144,45 @@ class Catalogue extends React.Component {
 
 
                                                          <MoveHighlight width={width}
-                                                             name="CorkRodeo Twist"
+                                                             trickname="CorkRodeo Twist"
+                                                             trickername="Michael Guthrie"
                                                              type="PRO"
                                                              price={'Free'}
                                                              rating={4}
-                                                             Image={require('../screens/images/corkrodeo.png')}
+                                                             image={require('../screens/images/corkrodeo.png')}
+                                                             onPress={() => this.props.navigation.navigate('Profile')}
                                                          />
 
                                                          <MoveHighlight width={width}
-                                                             name="Triple Cork"
+                                                             trickname="Triple Cork"
+                                                             trickername="Alexander Andersen"
                                                              type="PRO"
                                                              price={'Free'}
                                                              rating={3}
-                                                             Image={require('../screens/images/triplecork.png')}
+                                                             image={require('../screens/images/triplecork.png')}
+                                                             onPress={() => this.props.navigation.navigate('Profile')}
+
                                                          />
 
 
                                                          <MoveHighlight width={width}
-                                                             name="Snapu Swipe"
+                                                             trickname="Snapu Swipe"
+                                                             trickername="Daniel Graham"
                                                              type="PRO"
                                                              price={'Free'}
                                                              rating={6}
-                                                             Image={require('../screens/images/snapuswipe.png')}
+                                                             image={require('../screens/images/snapuswipe.png')}
+                                                             onPress={() => this.props.navigation.navigate('Profile')}
                                                          />
 
                                                          <MoveHighlight width={width}
-                                                             name="The ShurikenCutter"
+                                                             trickname="ShurikenCutter"
+                                                             trickername="Jacob Pinto"
                                                              type="GOLD"
                                                              price={'1$'}
                                                              rating={7}
-                                                             Image={require('../screens/images/shurikencutter.png')}
+                                                             image={require('../screens/images/shurikencutter.png')}
+                                                             onPress={() => this.props.navigation.navigate('Profile')}
                                                          />
 
 
@@ -185,141 +194,7 @@ class Catalogue extends React.Component {
 
 
 
-                                                 <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 0, marginTop: 10 }}>
 
-
-                                                 <View style={{ marginTop: 0, paddingHorizontal: 20 }}>
-
-
-                                                             <View style={{ width: width - 40, height: 200, marginTop: 7 }}>
-                                                                 <Image
-                                                                     style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 7, borderWidth: 1, borderColor: '#dddddd' }}
-                                                                     source={require('../screens/images/prolevel.jpg')}
-                                                                 />
-
-                                                         </View>
-                                                        </View>
-
-                                                        </View>
-
-
-
-
-
-                                                     <View style={{ marginTop: 20 }}>
-                                                         <Text style={{ fontSize: 24, fontWeight: '700', paddingHorizontal: 20 }}>
-                                                             Amateur level... Keep Pushing!
-                                                         </Text>
-                                                         <View style={{ paddingHorizontal: 20, marginTop: 20, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-
-
-
-                                                             <MoveHighlight width={width}
-                                                                 name="CorkRodeo Twist"
-                                                                 type="PRO"
-                                                                 price={'Free'}
-                                                                 rating={4}
-                                                                 Image={require('../screens/images/corkrodeo.png')}
-                                                             />
-
-                                                             <MoveHighlight width={width}
-                                                                 name="Triple Cork"
-                                                                 type="PRO"
-                                                                 price={'Free'}
-                                                                 rating={3}
-                                                                 Image={require('../screens/images/triplecork.png')}
-                                                             />
-
-
-                                                             <MoveHighlight width={width}
-                                                                 name="Snapu Swipe"
-                                                                 type="PRO"
-                                                                 price={'Free'}
-                                                                 rating={6}
-                                                                 Image={require('../screens/images/snapuswipe.png')}
-                                                             />
-
-                                                             <MoveHighlight width={width}
-                                                                 name="The ShurikenCutter"
-                                                                 type="GOLD"
-                                                                 price={'1$'}
-                                                                 rating={7}
-                                                                 Image={require('../screens/images/shurikencutter.png')}
-                                                             />
-
-
-                                                     </View>
-                                                     </View>
-
-
-
-                                                     <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 0, marginTop: 10 }}>
-
-
-                                                     <View style={{ marginTop: 0, paddingHorizontal: 20 }}>
-
-
-                                                                 <View style={{ width: width - 40, height: 200, marginTop: 7 }}>
-                                                                     <Image
-                                                                         style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 7, borderWidth: 1, borderColor: '#dddddd' }}
-                                                                         source={require('../screens/images/prolevel.jpg')}
-                                                                     />
-
-                                                             </View>
-                                                            </View>
-
-                                                            </View>
-
-
-
-
-
-                                                         <View style={{ marginTop: 20 }}>
-                                                             <Text style={{ fontSize: 24, fontWeight: '700', paddingHorizontal: 20 }}>
-                                                                 Start your way with this begginer tricks.
-                                                             </Text>
-                                                             <View style={{ paddingHorizontal: 20, marginTop: 20, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-
-
-
-
-
-                                                                 <MoveHighlight width={width}
-                                                                     name="CorkRodeo Twist"
-                                                                     type="PRO"
-                                                                     price={'Free'}
-                                                                     rating={4}
-                                                                     Image={require('../screens/images/corkrodeo.png')}
-                                                                 />
-
-                                                                 <MoveHighlight width={width}
-                                                                     name="Triple Cork"
-                                                                     type="PRO"
-                                                                     price={'Free'}
-                                                                     rating={3}
-                                                                     Image={require('../screens/images/triplecork.png')}
-                                                                 />
-
-
-                                                                 <MoveHighlight width={width}
-                                                                     name="Snapu Swipe"
-                                                                     type="PRO"
-                                                                     price={'Free'}
-                                                                     rating={6}
-                                                                     Image={require('../screens/images/snapuswipe.png')}
-                                                                 />
-
-                                                                 <MoveHighlight width={width}
-                                                                     name="The ShurikenCutter"
-                                                                     type="GOLD"
-                                                                     price={'1$'}
-                                                                     rating={7}
-                                                                     Image={require('../screens/images/shurikencutter.png')}
-                                                                 />
-
-
-                                                         </View>
-                                                         </View>
 
 
 
