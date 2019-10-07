@@ -6,8 +6,8 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator, DrawerNavigatorItems  } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-
-
+import { DrawerActions } from 'react-navigation';
+import { MaterialIcons } from '@expo/vector-icons';
 
 {/*
   IMPORTS FROM ALL SCREENS  -.------------------------------------------------------------------------------------------------
@@ -22,6 +22,7 @@ import RankScreen from './app_components/screens/RankScreen';
 import NotificationsScreen from './app_components/screens/NotificationsScreen';
 import SettingsScreen from './app_components/screens/SettingsScreen';
 import Example from "./app_components/screens/Example";
+import ProfileMain from "./app_components/screens/ProfileMain";
 import Catalogue from "./app_components/screens/Catalogue";
 import MoveList from "./app_components/screens/MoveList";
 
@@ -191,10 +192,13 @@ const RankStack = createStackNavigator({
 
 const ProfileStack = createStackNavigator({
   Profile_main: {
-    screen: Example,
-    navigationOptions: {
+    screen: ProfileMain,
+    navigationOptions: ({ navigation }) => ({
       headerTitle: 'Profile Main',
-    },
+      headerRight: (
+    <MaterialIcons name='dehaze' size={30} style={{flex:1,color:'black',paddingRight:20}} onPress={() => navigation.toggleDrawer()}  />
+    )
+  }),
   },
   Profile_others: {
     screen: Example,
@@ -324,7 +328,7 @@ const AppModalStack =
           getTabBarIcon(navigation, focused, tintColor),
       }),
   tabBarOptions: {
-        activeTintColor: '#0288d1',
+        activeTintColor: '#03a9f4',
         inactiveTintColor: 'black',
 
       },
@@ -411,7 +415,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   IconBadgeText: {
-    color: '#4fc3f7',
+    color: '#33f5f8',
     fontSize: 10,
     fontWeight: 'bold'
   },
