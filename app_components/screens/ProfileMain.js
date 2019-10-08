@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Button, StyleSheet, FlatList, Image, SafeAreaView, ScrollView, Dimensions, ImageBackground,TouchableNativeFeedback,Platform,TouchableOpacity,Constants } from 'react-native';
 import { Container, Content, Header, Right, Left, Body, Icon } from 'native-base'
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons,Entypo } from '@expo/vector-icons';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator, DrawerNavigatorItems  } from 'react-navigation-drawer';
@@ -10,7 +10,7 @@ import Pie from 'react-native-fab-pie';
 const { height, width } = Dimensions.get('window')
 
 import Animated from 'react-native-reanimated';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import MoveHighlight from './screen_components/MoveHighlight';
 import ProfileGraph from './screen_components/ProfileGraph';
@@ -59,14 +59,69 @@ flexDirection: 'row'}} >
 
 
 
+
+
+
+const getProfileTabViewIcon = (route, focused, color) => {
+
+  let routeName=route.key;
+  let iconName;
+  let IconComponent = MaterialIcons;
+
+  if (routeName === 'TrickStats') {
+
+          focused ? (iconName = `pie-chart`) : (iconName = `pie-chart-outlined`)
+          IconComponent = MaterialIcons;
+
+  } else if (routeName === 'Description') {
+
+          focused ? (iconName = `info`) : (iconName = `info-outline`)
+          IconComponent = MaterialIcons;
+
+  } else if (routeName === 'Ranking') {
+
+          focused ? (iconName = `star`) : (iconName = `star-outlined`)
+          IconComponent = Entypo;
+
+  } else if (routeName === 'Others') {
+
+          focused ? (iconName = `heart`) : (iconName = `heart-outlined`)
+          IconComponent = Entypo;
+
+  }
+
+  return <IconComponent name={iconName} size={22} color={'black'} style={{ marginTop:0,paddingTop:0,}} />;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class ProfileMain extends React.Component {
   state = {
     index: 0,
     routes: [
-      { key: 'TrickStats', title: 'TrickStats' },
-      { key: 'Description', title: 'Description' },
-      { key: 'Ranking', title: 'Ranking' },
-      { key: 'Others', title: 'Others' },
+      { key: 'TrickStats', title: 'Trick_Stats' },
+      { key: 'Description', title: '_Description' },
+      { key: 'Ranking', title: '_Ranking' },
+      { key: 'Others', title: '_Others' },
     ],
   };
 
@@ -84,6 +139,10 @@ class ProfileMain extends React.Component {
 
 
  _handleIndexChange = index => this.setState({ index });
+
+
+
+
 
 
 
@@ -124,12 +183,27 @@ class ProfileMain extends React.Component {
 
 
         <TabView
+              style={{backgroundColor:'white'}}
               navigationState={this.state}
               renderScene={this._renderScene}
               tabStyle={{backgroundColor:'white'}}
               onIndexChange={this._handleIndexChange}
+              renderTabBar={props =>
+                          <TabBar
+                            {...props}
+                            showLabel={false}
+                            renderLabel={({ route, focused, color }) => (
+                              <Text style={{ color, margin: 0,position:'absolute',top:0,left:0 }}>
+                              {route.title}
+                              </Text>
+                            )}
 
-            />
+                            indicatorStyle={{ backgroundColor: 'black' }}
+                            style={{flex:1,flexDirection:'column', backgroundColor: 'white', height: height/(2*8), alignContent: 'center',justifyContent: 'center', aligntItems: 'center',marginTop:0,paddingTop:0}}
+                            renderIcon= {({ route, focused, color }) => getProfileTabViewIcon(route, focused, color)}
+                          />
+                        }
+                        />
 
 
 

@@ -68,7 +68,7 @@ export default class ProfileGraph extends React.PureComponent {
 
 
       <Image
-      source={require('./images/toreto.jpg')}
+      source={require('./images/user.jpg')}
       onPress={this.animate}
       style={{
         position:'absolute',
